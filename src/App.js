@@ -6,7 +6,8 @@ import Login from './components/Login';
 import Signup from './components/Signup';
 import React ,{useEffect, useState} from 'react';
 import T from './components/T'
-
+import ForgotPassword from './components/ForgotPassword';
+import ResetPassword from './components/ResetPassword';
 import {
   BrowserRouter as Router,
   Routes,
@@ -45,6 +46,8 @@ function App() {
         <Route path="/about" element={<About/>}/>   
         <Route path="/login" element={<Login alert={alert} showAlert={showAlert}/>}/>  
         <Route path="/signup" element={<Signup showAlert={showAlert} alert={alert}/>}/>  
+        <Route path="/forgot-password" element={<ForgotPassword alert={alert} showAlert={showAlert}/>} />
+        <Route path="/reset-password/:token" element={<ResetPassword alert={alert} showAlert={showAlert}/>} />
       </Routes>
 </div>
 

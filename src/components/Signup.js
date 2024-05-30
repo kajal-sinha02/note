@@ -11,6 +11,10 @@ const Signup = ({ showAlert }) => {
     cpassword: "",
   });
 
+  const [showPassword, setShowPassword] = useState(false);
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
   const onchange = (e) => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value });
   };
@@ -88,7 +92,7 @@ const Signup = ({ showAlert }) => {
         </div>
         <div className="text-white">
           <label htmlFor="password" className="block mb-1">
-            Password
+            Password   
           </label>
           <input
             type="password"
