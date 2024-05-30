@@ -36,30 +36,35 @@ const Login = (props) => {
           if(json.success === true){
             //redirect
             localStorage.setItem('token' , json.authtoken);
-            navigate('/');
             showAlert('Login successful!', 'success');
+            navigate('/');
+            
           }
          
           console.log(json);
     }
+    const paragraphStyle = {
+      fontFamily: "'Playfair Display', serif",
+      fontWeight: 400
+    };
+    const isSubmitDisabled = credentials.email.trim() === '' || credentials.password.trim() === '';
   return (
-    <div>
-      <div className='container'>
-      <form onSubmit={handleSubmit}>
-  <div className="mb-3">
-    <label htmlFor="email" className="form-label">Email address</label>
-    <input type="email" className="form-control" id="email" aria-describedby="emailHelp" name='email' value={credentials.email} onChange={onchange}/>
-
-  </div>
-  <div className="mb-3">
-    <label htmlFor="password" className="form-label">Password</label>
-    <input type="password" className="form-control"id="password" name='password' value={credentials.password} onChange={onchange}/>
-  </div>
- 
-  <button type="submit" className="btn btn-primary" >Submit</button>
-</form>
-      </div>
+   
+      <div className='container mx-auto px-4 py-8 bg-gray-800 rounded-md shadow-md'>
+        <h2 className="text-center text-white text-2xl mb-6" style={paragraphStyle}>Login to Continue to MEMOMATE</h2>
+  <form onSubmit={handleSubmit} className="space-y-6">
+    <div className="text-white">
+      <label htmlFor="email" className="block mb-1">Email address</label>
+      <input type="email" minLength={5} className="w-full px-3 py-2 bg-gray-700 text-white rounded-md focus:outline-none focus:ring focus:ring-blue-500" id="email" aria-describedby="emailHelp" name='email' value={credentials.email} onChange={onchange}/>
     </div>
+    <div className="text-white">
+      <label htmlFor="password" className="block mb-1">Password</label>
+      <input type="password" minLength={5} className="w-full px-3 py-2 bg-gray-700 text-white rounded-md focus:outline-none focus:ring focus:ring-blue-500" id="password" name='password' value={credentials.password} onChange={onchange}/>
+    </div>
+    <button type="submit" className="btn btn-dark" disabled={isSubmitDisabled} >Submit</button>
+  </form>
+</div>
+
   )
 }
 

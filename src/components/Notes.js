@@ -1,9 +1,10 @@
 import React, { useContext, useEffect ,useRef ,useState } from "react";
 
 import noteContext from "../context/notes/noteContext";
-
+import Login from "./Login";
 import Noteitem from "./Noteitem";
 import AddNote from "./AddNote";
+import { useNavigate } from "react-router-dom";
 
 const Notes = (props) => {
 
@@ -11,7 +12,7 @@ const {showAlert} = props ;
    
   const [note, setNote] = useState({id:"" ,etitle:"", edescription:"" , etag: "default" });
   const context = useContext(noteContext);
-
+  let navigate = useNavigate();
 
   
 const { notes, getnotes ,editnote} = context;
@@ -41,7 +42,13 @@ const { notes, getnotes ,editnote} = context;
 
   }
   useEffect(() => {
-    getnotes();
+    if(localStorage.getItem('token') !== null){
+      getnotes();
+    }else{
+      navigate('/login');
+    }
+
+
   });
   return (
     <>
@@ -153,16 +160,20 @@ const { notes, getnotes ,editnote} = context;
         </div>
       </div>
 
-      <div className="row my-3">
-        <div className="container my-3">
-        {notes.length === 0 && 'No notes to display'}
-        </div>
-        {notes.map((note) => {
-          return (
-            <Noteitem key={note._id} note={note} updateNote={updateNote} />
-          );
-        })}
-      </div>
+      <div className="row my-3 justify-content-center">
+  <div className="container my-3">
+    {notes.length === 0 && 'No notes to display'}
+  </div>
+</div>
+
+<div className="row my-3 justify-content-center">
+  {notes.map((note) => {
+    return (
+      <Noteitem key={note._id} note={note} updateNote={updateNote} />
+    );
+  })}
+</div>
+
     </>
   );
 };

@@ -10,7 +10,7 @@ const Home = (props) => {
   const {notes , setNotes} = context ;
    return (
     <>
-      <div className="container my-3"> 
+      <div className="container"> 
         <Notes showAlert={showAlert}></Notes>
         </div>
     </>

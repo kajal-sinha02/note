@@ -1,10 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
 import Alert from "./Alert";
-const Signup = (props) => {
+
+const Signup = ({ showAlert }) => {
   const navigate = useNavigate();
-  let {alert , showAlert} = props ;
   const [credentials, setCredentials] = useState({
     name: "",
     email: "",
@@ -20,6 +19,11 @@ const Signup = (props) => {
     e.preventDefault();
 
     const { name, email, password, cpassword } = credentials;
+    if (password !== cpassword) {
+      showAlert("Passwords do not match", "danger");
+      return;
+    }
+
     const response = await fetch(`http://localhost:5000/api/auth/createuser`, {
       method: "POST",
       headers: {
@@ -33,10 +37,10 @@ const Signup = (props) => {
     });
 
     const json = await response.json();
-    if (json.success) {
+    if (response.ok) {
       localStorage.setItem("token", json.authtoken);
-      navigate("/");
       showAlert("Registered Successfully", "success");
+      navigate("/");
     } else {
       if (json.error === "sorry a user with this email already exist") {
         showAlert("A user with this email already exists", "danger");
@@ -44,77 +48,83 @@ const Signup = (props) => {
         showAlert("Invalid details", "danger");
       }
     }
-  
-    
-
   };
+  const paragraphStyle = {
+    fontFamily: "'Playfair Display', serif",
+    fontWeight: 400
+  };
+  const isSubmitDisabled = Object.values(credentials).some((value) => value.trim() === '');
   return (
-    <>
-   
-      <div className="container">
-        <form onSubmit={handleSubmit}>
-          <div className="mb-3">
-            <label htmlFor="name" className="form-label">
-              Name
-            </label>
-            <input
-              type="text"
-              className="form-control"
-              id="name"
-              name="name"
-              onChange={onchange}
-              aria-describedby="emailHelp"
-            />
-          </div>
-          <div className="mb-3">
-            <label htmlFor="email" className="form-label">
-              Email address
-            </label>
-            <input
-              type="email"
-              className="form-control"
-              id="email"
-              name="email"
-              onChange={onchange}
-              aria-describedby="emailHelp"
-            />
-          </div>
-          <div className="mb-3">
-            <label htmlFor="password" className="form-label">
-              Password
-            </label>
-            <input
-              type="password"
-              className="form-control"
-              name="password"
-              onChange={onchange}
-              id="password"
-              minLength={5}
-              required
-            />
-          </div>
+    <div className="container mx-auto px-4 py-8 bg-gray-800 rounded-md shadow-md">
+      <h2 className="text-center text-white text-2xl mb-6" style={paragraphStyle}>Register to MEMOMATE</h2>
+      <form onSubmit={handleSubmit} className="space-y-6">
+        <div className="text-white">
+          <label htmlFor="name" className="block mb-1">
+            Name
+          </label>
+          <input
+            type="text"
+            className="w-full px-3 py-2 bg-gray-700 text-white rounded-md focus:outline-none focus:ring focus:ring-blue-500"
+            id="name"
+            name="name"
+            minLength={5}
+            onChange={onchange}
+            aria-describedby="emailHelp"
+          />
+        </div>
+        <div className="text-white">
+          <label htmlFor="email" className="block mb-1">
+            Email address
+          </label>
+          <input
+            type="email"
+            className="w-full px-3 py-2 bg-gray-700 text-white rounded-md focus:outline-none focus:ring focus:ring-blue-500"
+            id="email"
+            name="email"
+            minLength={5}
+            onChange={onchange}
+            aria-describedby="emailHelp"
+          />
+        </div>
+        <div className="text-white">
+          <label htmlFor="password" className="block mb-1">
+            Password
+          </label>
+          <input
+            type="password"
+            className="w-full px-3 py-2 bg-gray-700 text-white rounded-md focus:outline-none focus:ring focus:ring-blue-500"
+            name="password"
+            onChange={onchange}
+            id="password"
+            minLength={5}
+            required
+          />
+        </div>
 
-          <div className="mb-3">
-            <label htmlFor="cpassword" className="form-label">
-              Confirm Password
-            </label>
-            <input
-              type="password"
-              className="form-control"
-              name="cpassword"
-              onChange={onchange}
-              id="cpassword"
-              minLength={5}
-              required
-            />
-          </div>
+        <div className="text-white">
+          <label htmlFor="cpassword" className="block mb-1">
+            Confirm Password
+          </label>
+          <input
+            type="password"
+            className="w-full px-3 py-2 bg-gray-700 text-white rounded-md focus:outline-none focus:ring focus:ring-blue-500"
+            name="cpassword"
+            onChange={onchange}
+            id="cpassword"
+            minLength={5}
+            required
+          />
+        </div>
 
-          <button type="submit" className="btn btn-primary">
-            Submit
-          </button>
-        </form>
-      </div>
-    </>
+        <button
+          type="submit"
+          className="btn btn-dark"
+          disabled={isSubmitDisabled}
+        >
+          Submit
+        </button>
+      </form>
+    </div>
   );
 };
 

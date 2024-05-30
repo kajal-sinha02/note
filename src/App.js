@@ -4,8 +4,8 @@ import Navbar from './components/Navbar';
 import About from './components/About';
 import Login from './components/Login';
 import Signup from './components/Signup';
-import React ,{useState} from 'react';
- 
+import React ,{useEffect, useState} from 'react';
+import T from './components/T'
 
 import {
   BrowserRouter as Router,
@@ -37,13 +37,17 @@ function App() {
     <NoteState>
 
       <Navbar></Navbar>
+
+      <div className={`min-h-screen bg-gray-900 text-gray-100}`}>
       <Alert alert={alert} />
       <Routes>
         <Route path="/" element={<Home showAlert={showAlert}/>}/>    
         <Route path="/about" element={<About/>}/>   
         <Route path="/login" element={<Login alert={alert} showAlert={showAlert}/>}/>  
         <Route path="/signup" element={<Signup showAlert={showAlert} alert={alert}/>}/>  
-</Routes>
+      </Routes>
+</div>
+
     </NoteState>
     </>
   );
