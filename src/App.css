@@ -39,3 +39,16 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap');
 
+.bg-dark-custom {
+  background: linear-gradient(45deg, #374151, #000000);
+  animation: gradientAnimation 5s infinite alternate;
+}
+
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}

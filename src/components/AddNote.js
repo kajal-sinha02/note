@@ -19,6 +19,7 @@ const AddNote = () => {
 
     return (
         <div className="container ">
+            <div style={{height : "30px"}}></div> 
             <h2 className="text-2xl font-semibold mb-4" style={{color:"white"}}>Add a Note</h2>
             <form>
                 <div className="mb-4">

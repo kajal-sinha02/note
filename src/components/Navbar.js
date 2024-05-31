@@ -1,16 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 
 const Navbar = () => {
-  const [darkMode, setDarkMode] = useState(false);
 
-  useEffect(() => {
-    if (darkMode) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
-  }, [darkMode]);
 
   let navigate = useNavigate();
   const handleLogout = () => {
@@ -20,7 +12,7 @@ const Navbar = () => {
   const location = useLocation();
 
   return (
-    <nav className={`navbar navbar-expand-lg navbar-dark bg-dark`}>
+    <nav className="navbar navbar-expand-lg navbar-dark bg-dark-custom">
       <div className="container-fluid">
         <a className="navbar-brand" href="#">MEMOMATE</a>
         <button
@@ -46,10 +38,10 @@ const Navbar = () => {
           </ul>
           {!(localStorage.getItem('token')) ? (
             <form className="d-flex">
-              <Link className="btn btn-dark mx-2" to="/login" role="button">Login</Link>
-              <Link className="btn btn-dark mx-2" to="/signup" role="button">SignUp</Link>
+              <Link className="btn btn-outline-light mx-2" to="/login" role="button">Login</Link>
+              <Link className="btn btn-outline-light mx-2" to="/signup" role="button">SignUp</Link>
             </form>
-          ) : <button className='btn btn-secondary mx-2' onClick={handleLogout}>Logout</button>}
+          ) : <button className='btn btn-outline-light mx-2' onClick={handleLogout}>Logout</button>}
         </div>
        
       </div>
