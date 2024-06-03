@@ -12,7 +12,7 @@ const ForgotPassword = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch('https://memomate.onrender.com/api/auth/forgot-password', {
+      const response = await fetch('https://memomate-g2ic.onrender.com/api/auth/forgot-password', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

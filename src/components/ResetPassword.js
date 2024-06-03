@@ -11,7 +11,7 @@ const ResetPassword = (props) => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await fetch(`https://memomate.onrender.com/api/auth/reset-password/${token}`, {
+    const response = await fetch(`https://memomate-g2ic.onrender.com/api/auth/reset-password/${token}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
